@@ -37,6 +37,7 @@ type Book record {|
 
 map<map<Book>> books = {};
 const string DEFAULT_USER = "default";
+configurable int bookTotalCount = 100;
 
 service /readinglist on new http:Listener(9090) {
 
@@ -75,7 +76,7 @@ service /readinglist on new http:Listener(9090) {
 function populateBookMap() returns map<Book> {
     map<Book> myBookMap = {};
     
-    foreach var i in 1...122 {
+    foreach var i in 1...bookTotalCount {
         BookItem bookItem = {
             title: "Book " + i.toString(),
             author: "Author " + i.toString(),
