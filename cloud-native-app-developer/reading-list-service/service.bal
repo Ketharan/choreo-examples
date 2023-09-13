@@ -41,11 +41,12 @@ const string DEFAULT_USER = "default";
 service /readinglist on new http:Listener(9090) {
 
     resource function get books(http:Headers headers) returns Book[]|http:BadRequest|error {
-        map<Book>|http:BadRequest usersBooks = check getUsersBooks(headers);
-        if (usersBooks is map<Book>) {
-            return usersBooks.toArray();
-        }
-        return <http:BadRequest>usersBooks;
+        // map<Book>|http:BadRequest usersBooks = check getUsersBooks(headers);
+        // bookMap = populateBookMap();
+        // if (usersBooks is map<Book>) {
+        return populateBookMap().toArray();
+        // }
+        // return <http:BadRequest>usersBooks;
     }
 
     resource function post books(http:Headers headers,
@@ -69,6 +70,27 @@ service /readinglist on new http:Listener(9090) {
         }
         return <http:BadRequest>usersBooks;
     }
+}
+
+function populateBookMap() returns map<Book> {
+    map<Book> myBookMap = {};
+    
+    foreach var i in 1...100 {
+        BookItem bookItem = {
+            title: "Book " + i.toString(),
+            author: "Author " + i.toString(),
+            status: "Available"
+        };
+        
+        Book book = {
+            ...bookItem,
+            id: i.toString()
+        };
+        
+        myBookMap[i.toString()] = book;
+    }
+    
+    return myBookMap;
 }
 
 // This function is used to get the books of the user who is logged in.
