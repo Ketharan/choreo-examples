@@ -75,7 +75,7 @@ service /readinglist on new http:Listener(9090) {
 function populateBookMap() returns map<Book> {
     map<Book> myBookMap = {};
     
-    foreach var i in 1...100 {
+    foreach var i in 1...122 {
         BookItem bookItem = {
             title: "Book " + i.toString(),
             author: "Author " + i.toString(),
