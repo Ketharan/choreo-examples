@@ -41,7 +41,7 @@ configurable int bookTotalCount = 100;
 
 service /readinglist on new http:Listener(9090) {
 
-    resource function get greet(http:Headers headers) returns http:Ok|http:BadRequest|error {
+    resource function get greet(http:Headers headers) returns http:Ok {
         return <http:Ok>{};
     }
 
